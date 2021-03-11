@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 import ProductItem from '../../components/shop/ProductItem'
 
-export default function ProductsOverviewScreen() {
+export default function ProductsOverviewScreen(props) {
     const products = useSelector(state => state.products.availableProducts)
 
     return (
@@ -16,7 +16,7 @@ export default function ProductsOverviewScreen() {
                     imageUrl={item.imageUrl}
                     title={item.title}
                     price={item.price}
-                    onViewDetail={() =>{}}
+                    onViewDetail={() => props.navigation.navigate('ProductDetail', {productId: item.id, productTitle: item.title})}
                     onAddToCart={() =>{}}
                 />
             )}
