@@ -1,7 +1,9 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 import { useSelector } from 'react-redux'
+
+import colors from '../../constants/colors'
 
 export default function ProductDetailScreen(props) {
     const productId = props.navigation.getParam('productId')
@@ -10,7 +12,12 @@ export default function ProductDetailScreen(props) {
 
     return (
         <ScrollView>
-            <Text>{product.title}</Text>
+            <Image style={styles.image} source={{uri: product.imageUrl}} />
+            <View style={styles.button}>
+                <Button color={colors.primary} title='Add to Cart' onPress={() => {}} />
+            </View>
+            <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+            <Text style={styles.description}>{product.description}</Text>
         </ScrollView>
     )
 }
@@ -22,5 +29,23 @@ ProductDetailScreen.navigationOptions = navData => {
 }
 
 const styles = StyleSheet.create({
-
+    image: {
+        width: '100%',
+        height: 300,
+    },
+    button: {
+        marginVertical: 10,
+        alignItems: 'center',
+    },
+    price: {
+        fontSize: 20,
+        color: '#888',
+        textAlign: 'center',
+        marginVertical: 20,
+    },
+    description: {
+        fontSize: 14,
+        textAlign: 'center',
+        marginHorizontal: 20,
+    },
 })
