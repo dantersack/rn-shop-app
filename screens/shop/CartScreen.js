@@ -49,6 +49,10 @@ export default function CartScreen() {
     )
 }
 
+CartScreen.navigationOptions = {
+    headerTitle: 'Your Cart',
+}
+
 const styles = StyleSheet.create({
     screen: {
         flex: 1,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { LogBox, StyleSheet } from 'react-native'
 
 import { combineReducers, createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -10,6 +10,8 @@ import productsReducer from './redux/reducers/productsReducer'
 import cartReducer from './redux/reducers/cartReducer'
 import ordersReducer from './redux/reducers/ordersReducer'
 import ShopNavigator from './navigation/ShopNavigator'
+
+LogBox.ignoreLogs([/Your project is accessing the following APIs from a deprecated global/])
 
 const rootReducer = combineReducers({
     products: productsReducer,

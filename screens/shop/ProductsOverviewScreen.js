@@ -30,6 +30,15 @@ export default function ProductsOverviewScreen(props) {
 
 ProductsOverviewScreen.navigationOptions = ({navigation}) => ({
     headerTitle: 'All Products',
+    headerLeft: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
+            <Item 
+                title='Orders'
+                iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+                onPress={() => navigation.toggleDrawer()}
+            />
+        </HeaderButtons>
+    ),
     headerRight: () => (
         <HeaderButtons HeaderButtonComponent={CustomHeaderButton}>
             <Item 
