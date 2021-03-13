@@ -1,4 +1,5 @@
 import { ADD_TO_CART, REMOVE_FROM_CART } from '../actions/cartActions'
+import { ADD_ORDER } from '../actions/ordersActions'
 import CartItem from '../../models/cartItem'
 
 const initialState = {
@@ -59,6 +60,11 @@ export default (state = initialState, action) => {
                 ...state,
                 items: updatedItems,
                 totalAmount: state.totalAmount - selectedCartItem.price,
+            }
+
+        case ADD_ORDER:
+            return {
+                ...initialState,
             }
 
         default:
