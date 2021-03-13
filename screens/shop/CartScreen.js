@@ -4,6 +4,7 @@ import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as cartActions from '../../redux/actions/cartActions'
+import * as ordersActions from '../../redux/actions/ordersActions'
 import colors from '../../constants/colors'
 import CartItem from '../../components/shop/CartItem'
 
@@ -27,7 +28,7 @@ export default function CartScreen() {
                 <Text style={styles.summaryText}>Total: <Text style={styles.summaryTotal}>${totalAmount.toFixed(2)}</Text></Text>
                 <Button 
                     title='Order Now' 
-                    onPress={() => {}}
+                    onPress={() => dispatch(ordersActions.addOrder(cartItems, totalAmount))}
                     color={colors.primary}
                     disabled={cartItems.length === 0}
                 />

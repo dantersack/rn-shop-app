@@ -8,11 +8,13 @@ import AppLoading from 'expo-app-loading'
 
 import productsReducer from './redux/reducers/productsReducer'
 import cartReducer from './redux/reducers/cartReducer'
+import ordersReducer from './redux/reducers/ordersReducer'
 import ShopNavigator from './navigation/ShopNavigator'
 
 const rootReducer = combineReducers({
     products: productsReducer,
     cart: cartReducer,
+    orders: ordersReducer,
 })
 
 const store = createStore(rootReducer)
