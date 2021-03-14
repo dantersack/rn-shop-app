@@ -1,9 +1,13 @@
 import React from 'react'
+import { useState } from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
 import colors from '../../constants/colors'
+import CartItem from './CartItem'
 
-export default function OrderItem({amount, date, lastChild}) {
+export default function OrderItem({amount, date, lastChild, items}) {
+    const [showDetails, setShowDetails] = useState(false)
+
     return (
         <View style={[styles.orderItem, {marginBottom: lastChild ? 20 : 0}]}>
             <View style={styles.summary}>
@@ -11,10 +15,22 @@ export default function OrderItem({amount, date, lastChild}) {
                 <Text style={styles.date}>{date}</Text>
             </View>
             <Button 
-                title='Show Details' 
-                onPress={() => {}}
+                title={showDetails ? 'Hide Details' : 'Show Details'} 
+                onPress={() => setShowDetails(prevState => !prevState)}
                 color={colors.primary}
             />
+            {showDetails && (
+                <View style={styles.detailsWrapper}>
+                    {items.map(cartItem => (
+                        <CartItem
+                            key={cartItem.productId}
+                            quantity={cartItem.quantity}
+                            title={cartItem.title}
+                            amount={cartItem.price}
+                        />
+                    ))}
+                </View>
+            )}
         </View>
     )
 }
@@ -50,5 +66,8 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans',
         fontSize: 16,
         color: '#888'
+    },
+    detailsWrapper: {
+        width: '100%',
     },
 })

@@ -12,13 +12,13 @@ export default function CartItem({quantity, title, amount, onRemove}) {
             </View>
             <View style={styles.itemData}>
                 <Text style={styles.primaryText}>${amount}</Text>
-                <TouchableOpacity style={styles.deleteButton} onPress={onRemove}>
+                {onRemove && <TouchableOpacity style={styles.deleteButton} onPress={onRemove}>
                     <Ionicons 
                         name={Platform.OS === 'android' ? 'md-trash' : 'ios-trash'}
                         size={23}
                         color='red'
                     />
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         </View>
     )

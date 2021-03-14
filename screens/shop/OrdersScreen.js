@@ -18,6 +18,7 @@ export default function OrdersScreen() {
                     amount={item.totalAmount}
                     date={item.parsedDate}
                     lastChild={index + 1 === orders.length}
+                    items={item.items}
                 />
             )}
         />
