@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native'
 export default function EditProductScreen() {
     return (
         <View>
-            <Text>o hi mark</Text>
+            <Text>oh hi mark</Text>
         </View>
     )
 }

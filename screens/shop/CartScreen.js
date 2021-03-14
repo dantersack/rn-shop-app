@@ -25,7 +25,7 @@ export default function CartScreen() {
     return (
         <View style={styles.screen}>
             <View style={styles.summary}>
-                <Text style={styles.summaryText}>Total: <Text style={styles.summaryTotal}>${totalAmount.toFixed(2)}</Text></Text>
+                <Text style={styles.summaryText}>Total: <Text style={styles.summaryTotal}>${+totalAmount.toFixed(2)}</Text></Text>
                 <Button 
                     title='Order Now' 
                     onPress={() => dispatch(ordersActions.addOrder(cartItems, totalAmount))}

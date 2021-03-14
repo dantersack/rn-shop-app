@@ -12,6 +12,7 @@ import ProductDetailScreen from '../screens/shop/ProductDetailScreen'
 import CartScreen from '../screens/shop/CartScreen'
 import OrdersScreen from '../screens/shop/OrdersScreen'
 import UserProductScreen from '../screens/user/UserProductsScreen'
+import EditProductScreen from '../screens/user/EditProductScreen'
 
 const defaultNavOptions = {
     headerStyle: {
@@ -44,7 +45,7 @@ const ProductsNavigator = createStackNavigator({
 })
 
 const OrdersNavigator = createStackNavigator({
-    Orders: OrdersScreen
+    Orders: OrdersScreen,
 }, {
     navigationOptions: {
         drawerIcon: drawerConfig =>(
@@ -59,7 +60,8 @@ const OrdersNavigator = createStackNavigator({
 })
 
 const AdminNavigator = createStackNavigator({
-    UserProducts: UserProductScreen
+    UserProducts: UserProductScreen,
+    EditProduct: EditProductScreen,
 }, {
     navigationOptions: {
         drawerIcon: drawerConfig =>(
