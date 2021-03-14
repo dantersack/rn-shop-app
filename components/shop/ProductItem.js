@@ -1,9 +1,7 @@
 import React from 'react'
-import { Button, Image, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, StyleSheet, Text, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native'
 
-import colors from '../../constants/colors'
-
-export default function ProductItem({imageUrl, title, price, onViewDetail, onAddToCart}) {
+export default function ProductItem({imageUrl, title, price, onSelect, ...props}) {
     let TouchableComponent = TouchableOpacity
 
     if (Platform.OS === 'android' && Platform.Version >= 21) {
@@ -12,7 +10,7 @@ export default function ProductItem({imageUrl, title, price, onViewDetail, onAdd
 
     return (
         <View style={styles.product}>
-            <TouchableComponent onPress={onViewDetail} useForeground>
+            <TouchableComponent onPress={onSelect} useForeground>
                 <View>
                     <View style={styles.imageContainer}>
                         <Image style={styles.image} source={{uri: imageUrl}} />
@@ -22,8 +20,7 @@ export default function ProductItem({imageUrl, title, price, onViewDetail, onAdd
                         <Text style={styles.price}>${price.toFixed(2)}</Text>
                     </View>
                     <View style={styles.actions}>
-                        <Button title='View Details' onPress={onViewDetail} color={colors.primary} />
-                        <Button title='To Cart' onPress={onAddToCart} color={colors.primary} />
+                        {props.children}
                     </View>
                 </View>
             </TouchableComponent>

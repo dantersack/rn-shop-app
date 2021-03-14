@@ -1,9 +1,10 @@
 import React from 'react'
-import { FlatList, Platform } from 'react-native'
+import { Button, FlatList, Platform } from 'react-native'
 
 import { useSelector } from 'react-redux'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 
+import colors from '../../constants/colors'
 import ProductItem from '../../components/shop/ProductItem'
 import CustomHeaderButton from '../../components/UI/HeaderButton'
 
@@ -18,7 +19,19 @@ export default function UserProductsScreen() {
                     imageUrl={item.imageUrl}
                     title={item.title}
                     price={item.price}
-                />
+                    onSelect={() => {}}
+                >
+                    <Button 
+                        title='Edit' 
+                        onPress={() => {}} 
+                        color={colors.primary} 
+                    />
+                    <Button 
+                        title='Delete' 
+                        onPress={() => {}} 
+                        color={colors.primary} 
+                    />
+                </ProductItem>
             )}
         />
     )
