@@ -24,6 +24,7 @@ export default function EditProductScreen(props) {
         } else {
             dispatch(productsActions.createProduct(title, imageUrl, +price, description))
         }
+        props.navigation.goBack()
     }, [dispatch, productId, title, imageUrl, price, description])
 
     useEffect(() => {
