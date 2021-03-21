@@ -11,6 +11,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case CREATE_PRODUCT:
             const {
+                id: npId,
                 title: npTitle, 
                 imageUrl: npImageUrl, 
                 description: npDescription, 
@@ -18,7 +19,7 @@ export default (state = initialState, action) => {
             } = action.payload
             
             const newProduct = new Product(
-                new Date().toString(),
+                npId,
                 'u1',
                 npTitle,
                 npImageUrl,
