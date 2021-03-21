@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { LogBox, StyleSheet } from 'react-native'
 
-import { combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { Provider } from 'react-redux'
+import ReduxThunk from 'redux-thunk'
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
 
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
     orders: ordersReducer,
 })
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
 
 const fetchFonts = () => {
     return Font.loadAsync({
