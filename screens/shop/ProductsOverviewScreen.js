@@ -28,8 +28,10 @@ export default function ProductsOverviewScreen(props) {
     }, [dispatch, setLoading, setError])
 
     useEffect(() => {
-        fetchProducts()
-    }, [dispatch, fetchProducts])
+        const willFocusSub = props.navigation.addListener('willFocus', fetchProducts)
+        
+        return () => willFocusSub.remove()
+    }, [fetchProducts])
 
     const selectItemHandler = (id, title) => {
         props.navigation.navigate('ProductDetail', {productId: id, productTitle: title})
