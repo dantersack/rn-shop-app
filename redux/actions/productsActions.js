@@ -56,20 +56,28 @@ export const deleteProduct = productId => {
 
 export const fetchProducts = () => {
     return async dispatch => {
-        const response = await fetch('https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products.json')
+        try {
+            const response = await fetch('https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products.json')
 
-        const data = await response.json()
-
-        const fetchedProducts = []
-
-        for (const key in data) {
-            const {title, imageUrl, description, price} = data[key]
-            fetchedProducts.push(new Product(key, 'u1', title, imageUrl, description, price))
+            if (!response.ok) {
+                throw new Error('An error occurred')
+            }
+    
+            const data = await response.json()
+    
+            const fetchedProducts = []
+    
+            for (const key in data) {
+                const {title, imageUrl, description, price} = data[key]
+                fetchedProducts.push(new Product(key, 'u1', title, imageUrl, description, price))
+            }
+    
+            dispatch({
+                type: SET_PRODUCTS,
+                products: fetchedProducts,
+            })
+        } catch (error) {
+            throw error
         }
-
-        dispatch({
-            type: SET_PRODUCTS,
-            products: fetchedProducts,
-        })
     }
 }
