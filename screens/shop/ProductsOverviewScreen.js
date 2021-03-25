@@ -12,20 +12,21 @@ import CustomHeaderButton from '../../components/UI/HeaderButton'
 
 export default function ProductsOverviewScreen(props) {
     const [loading, setLoading] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
     const [error, setError] = useState()
     const products = useSelector(state => state.products.availableProducts)
     const dispatch = useDispatch()
 
     const fetchProducts = useCallback(async () => {
         setError(null)
-        setLoading(true)
+        setRefreshing(true)
         try {
             await dispatch(productsActions.fetchProducts())
         } catch (error) {
             setError(error.message)
         }
-        setLoading(false)
-    }, [dispatch, setLoading, setError])
+        setRefreshing(false)
+    }, [dispatch, setError, setRefreshing])
 
     useEffect(() => {
         const willFocusSub = props.navigation.addListener('willFocus', fetchProducts)
@@ -34,7 +35,8 @@ export default function ProductsOverviewScreen(props) {
     }, [fetchProducts])
 
     useEffect(() => {
-        fetchProducts()
+        setLoading(true)
+        fetchProducts().finally(() => setLoading(false))
     }, [fetchProducts])
 
     const selectItemHandler = (id, title) => {
@@ -73,6 +75,8 @@ export default function ProductsOverviewScreen(props) {
     return (
         <FlatList
             data={products}
+            onRefresh={fetchProducts}
+            refreshing={refreshing}
             renderItem={({item}) => (
                 <ProductItem 
                     imageUrl={item.imageUrl}
