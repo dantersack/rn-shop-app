@@ -37,7 +37,7 @@ export const createProduct = (title, imageUrl, price = 0, description) => {
 
 export const updateProduct = (productId, title, imageUrl, description) => {
     return async dispatch => {
-        await fetch(`https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products/${productId}.json`, {
+        const response = await fetch(`https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products/${productId}.json`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,6 +48,10 @@ export const updateProduct = (productId, title, imageUrl, description) => {
                 description,
             })
         })
+
+        if (!response.ok) {
+            throw new Error('An error occurred')
+        }
 
         dispatch({
             type: UPDATE_PRODUCT,
@@ -63,9 +67,13 @@ export const updateProduct = (productId, title, imageUrl, description) => {
 
 export const deleteProduct = productId => {
     return async dispatch => {
-        await fetch(`https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products/${productId}.json`, {
+        const response = await fetch(`https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products/${productId}.json`, {
             method: 'DELETE',
         })
+
+        if (!response.ok) {
+            throw new Error('An error occurred')
+        }
 
         dispatch({
             type: DELETE_PRODUCT,
