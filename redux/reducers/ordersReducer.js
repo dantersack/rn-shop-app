@@ -1,4 +1,4 @@
-import { ADD_ORDER } from '../actions/ordersActions'
+import { ADD_ORDER, SET_ORDERS } from '../actions/ordersActions'
 import Order from '../../models/order'
 
 const initialState = {
@@ -22,6 +22,12 @@ export default (state = initialState, action) => {
                 orders: [...state.orders, newOrder]
             }
     
+        case SET_ORDERS:
+            return {
+                ...state,
+                orders: action.orders,
+            }
+
         default:
             return state
     }
