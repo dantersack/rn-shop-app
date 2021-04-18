@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from 'react'
+import React, { useCallback, useReducer, useState } from 'react'
 import { Button, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native' 
 
 import { useDispatch } from 'react-redux'
@@ -36,6 +36,7 @@ const formReducer = (state, action) => {
 }
 
 export default function AuthScreen() {
+    const [isSignup, setIsSignup] = useState(false)
     const dispatch = useDispatch()
 
     const [formState, formDispatch] = useReducer(formReducer, {
@@ -59,8 +60,11 @@ export default function AuthScreen() {
         })
     }, [formDispatch])
 
-    const signupHandler = () => {
-        dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password))
+    const authHandler = () => {
+        isSignup ? 
+            dispatch(authActions.signup(formState.inputValues.email, formState.inputValues.password))
+        :
+            dispatch(authActions.login(formState.inputValues.email, formState.inputValues.password))
     }
 
     return (
@@ -97,16 +101,16 @@ export default function AuthScreen() {
                         />
                         <View style={styles.buttonContainer}>
                             <Button 
-                                title='Login' 
+                                title={isSignup ? 'Signup' : 'Login'} 
                                 color={colors.primary} 
-                                onPress={signupHandler} 
+                                onPress={authHandler} 
                             />
                         </View>
                         <View style={styles.buttonContainer}>
                             <Button
-                                title='Switch to Sign Up'
+                                title={`Switch to ${isSignup ? 'Login' : 'Signup'}`}
                                 color={colors.secondary}
-                                onPress={() => {}}
+                                onPress={() => setIsSignup(prevState => !prevState)}
                             />
                         </View>
                     </ScrollView>
