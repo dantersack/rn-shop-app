@@ -16,7 +16,15 @@ export const signup = (email, password) => {
         })
 
         if (!response.ok) {
-            throw new Error('An error occurred')
+            const errorData = await response.json()
+            const {error: {message}} = errorData
+            switch (message) {
+                case 'EMAIL_EXISTS':
+                    throw new Error('User already exists')
+                
+                default:
+                    throw new Error('An error occurred')
+            }
         }
 
         const data = await response.json()
@@ -46,7 +54,18 @@ export const login = (email, password) => {
         })
 
         if (!response.ok) {
-            throw new Error('An error occurred')
+            const errorData = await response.json()
+            const {error: {message}} = errorData
+            switch (message) {
+                case 'EMAIL_NOT_FOUND':
+                    throw new Error('User does not exist')
+                
+                case 'INVALID_PASSWORD':
+                    throw new Error('Wrong password')
+                
+                default:
+                    throw new Error('An error occurred')
+            }
         }
 
         const data = await response.json()
