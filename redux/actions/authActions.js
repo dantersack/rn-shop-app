@@ -29,12 +29,10 @@ export const signup = (email, password) => {
 
         const data = await response.json()
 
-        console.log(data)
-
         dispatch({
             type: SIGNUP,
-            //email: email,
-            //password: password,
+            token: data.idToken,
+            userId: data.localId,
         })
     }
 }
@@ -70,12 +68,10 @@ export const login = (email, password) => {
 
         const data = await response.json()
 
-        console.log(data)
-
         dispatch({
             type: LOGIN,
-            //email: email,
-            //password: password,
+            token: data.idToken,
+            userId: data.localId,
         })
     }
 }

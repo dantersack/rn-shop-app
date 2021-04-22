@@ -35,7 +35,7 @@ const formReducer = (state, action) => {
     return state
 }
 
-export default function AuthScreen() {
+export default function AuthScreen(props) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
     const [isSignup, setIsSignup] = useState(false)
@@ -86,10 +86,11 @@ export default function AuthScreen() {
         setLoading(true)
         try {
             await dispatch(action)
+            props.navigation.navigate('Shop')
         } catch (error) {
             setError(error.message)
+            setLoading(false)        
         }
-        setLoading(false)        
     }
 
     return (
