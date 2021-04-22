@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Platform, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, FlatList, Platform, StyleSheet, Text, View } from 'react-native'
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,6 +24,14 @@ export default function OrdersScreen() {
         return (
             <View style={styles.centered}>
                 <ActivityIndicator size='large' color={colors.primary} />
+            </View>
+        )
+    }
+
+    if (orders.length === 0) {
+        return (
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>No orders found</Text>
             </View>
         )
     }

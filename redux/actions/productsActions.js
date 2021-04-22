@@ -7,7 +7,7 @@ export const SET_PRODUCTS = 'SET_PRODUCTS'
 
 export const createProduct = (title, imageUrl, price = 0, description) => {
     return async (dispatch, getState) => {
-        const token = getState().auth.token
+        const {token, userId} = getState().auth
 
         const response = await fetch(`https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products.json?auth=${token}`, {
             method: 'POST',
@@ -15,6 +15,7 @@ export const createProduct = (title, imageUrl, price = 0, description) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                ownerId: userId,
                 title,
                 imageUrl,
                 price,
@@ -28,6 +29,7 @@ export const createProduct = (title, imageUrl, price = 0, description) => {
             type: CREATE_PRODUCT,
             payload: {
                 id: data.name,
+                ownerId: userId,
                 title,
                 imageUrl,
                 price,
@@ -89,7 +91,9 @@ export const deleteProduct = productId => {
 }
 
 export const fetchProducts = () => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const userId = getState().auth.userId
+
         try {
             const response = await fetch('https://rn-shop-app-a47f3-default-rtdb.firebaseio.com/products.json')
 
@@ -102,13 +106,14 @@ export const fetchProducts = () => {
             const fetchedProducts = []
     
             for (const key in data) {
-                const {title, imageUrl, description, price} = data[key]
-                fetchedProducts.push(new Product(key, 'u1', title, imageUrl, description, price))
+                const {title, imageUrl, description, price, ownerId = 'u1'} = data[key]
+                fetchedProducts.push(new Product(key, ownerId, title, imageUrl, description, price))
             }
     
             dispatch({
                 type: SET_PRODUCTS,
                 products: fetchedProducts,
+                userProducts: fetchedProducts.filter(product => product.ownerId === userId),
             })
         } catch (error) {
             throw error
